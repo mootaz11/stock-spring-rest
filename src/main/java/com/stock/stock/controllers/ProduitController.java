@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @RequestMapping("/product")
-
 @RestController
 public class ProduitController {
  @Autowired
@@ -22,15 +21,16 @@ public class ProduitController {
     public HttpEntity<String> addProduct (@RequestBody Produit produit)
 {
     double tva = 0.19;
-    produit.set_Id(String.valueOf( ObjectId.get()));
-    return produitRepository.createProduit(produit);
 
+    produit.set_Id(String.valueOf( ObjectId.get()));
+    produit.setPriceHt(produit.getPrice()-(produit.getPrice()*(produit.getRem()/100)));
+    produit.setPriceTtc(produit.getPriceHt()+(produit.getPriceHt()*tva));
+    return produitRepository.createProduit(produit);
 }
 
 @PatchMapping("/updateProduct/{id}")
     public ResponseEntity<Produit> updateProduct (@PathVariable String id , @RequestBody Produit newProduit){
         Produit produit = produitRepository.findProduit(id);
-
         newProduit.set_Id(produit.get_Id());
         return produitRepository.updateProduit(newProduit);
 }
@@ -43,7 +43,7 @@ public class ProduitController {
 
 @DeleteMapping("/deleteProduct/{idProduct}")
     public ResponseEntity<String>  deleteProduct(@PathVariable String idProduct ) {
-
         return produitRepository.deleteProduit(idProduct);
 }
+
 }

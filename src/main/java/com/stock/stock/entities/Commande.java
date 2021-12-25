@@ -15,15 +15,17 @@ public class Commande {
     private String clientAddress;
     private String clientRef;
     private String matriculeFiscale;
-    private ArrayList<Produit> produitsVendus ;
+    private ArrayList<ProduitVendu> produitsVendus ;
     private Double netTotale ;
+    private Double htTotale;
+    private Double remise;
     private Facture facture ;
 
     public Commande() {
         super();
     }
 
-    public Commande(String id, String clientName, String clientAddress, String clientRef, String matriculeFiscale, ArrayList<Produit> produitsVendus, Double netTotale, Facture facture ) {
+    public Commande(String id, String clientName,Double remise,Double htTotale, String clientAddress, String clientRef, String matriculeFiscale, ArrayList<ProduitVendu> produitsVendus, Double netTotale, Facture facture ) {
         super();
         this._id = id;
         this.clientName = clientName;
@@ -32,14 +34,32 @@ public class Commande {
         this.matriculeFiscale = matriculeFiscale;
         this.produitsVendus = produitsVendus;
         this.netTotale = netTotale ;
+        this.remise=remise;
+        this.htTotale=htTotale;
         this.facture= facture ;
     }
 
-    public ArrayList<Produit> getProduitsVendus() {
+    public Double getHtTotale() {
+        return htTotale;
+    }
+
+    public void setHtTotale(Double htTotale) {
+        this.htTotale = htTotale;
+    }
+
+    public Double getRemise() {
+        return remise;
+    }
+
+    public void setRemise(Double remise) {
+        this.remise = remise;
+    }
+
+    public ArrayList<ProduitVendu> getProduitsVendus() {
         return produitsVendus;
     }
 
-    public void setProduitsVendus(ArrayList<Produit> produitsVendus) {
+    public void setProduitsVendus(ArrayList<ProduitVendu> produitsVendus) {
         this.produitsVendus = produitsVendus;
     }
 
@@ -110,14 +130,16 @@ public class Commande {
     @Override
     public String toString() {
         return "Commande{" +
-                "id='" + _id + '\'' +
+                "_id='" + _id + '\'' +
                 ", clientName='" + clientName + '\'' +
                 ", clientAddress='" + clientAddress + '\'' +
                 ", clientRef='" + clientRef + '\'' +
                 ", matriculeFiscale='" + matriculeFiscale + '\'' +
+                ", produitsVendus=" + produitsVendus +
+                ", netTotale=" + netTotale +
+                ", htTotale=" + htTotale +
+                ", remise=" + remise +
+                ", facture=" + facture +
                 '}';
     }
-
-
-
 }

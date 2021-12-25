@@ -45,7 +45,6 @@ public class LocalMongoConfig {
         MongoDatabaseFactory mongoDbFactory = new SimpleMongoClientDatabaseFactory(  mongoClient(),
                 env.getProperty("spring.data.mongodb.database"));
         return mongoDbFactory;
-
     }
 
     @Bean

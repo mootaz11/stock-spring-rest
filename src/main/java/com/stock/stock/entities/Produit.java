@@ -14,14 +14,15 @@ public class Produit {
     private String name;
     private int quantity;
     private Double price ;
+    private Double priceHt;
     private Double priceTtc;
-    private int rem ;
+    private Double rem ;
 
     public Produit() {
         super();
     }
 
-    public Produit(String id, String name, int quantity, Double price, Double priceTtc, int rem) {
+    public Produit(String id, String name, int quantity, Double price, Double priceTtc, Double rem,Double priceHt) {
         super();
         this._id = id;
         this.name = name;
@@ -29,6 +30,15 @@ public class Produit {
         this.price = price;
         this.priceTtc = priceTtc;
         this.rem = rem;
+        this.priceHt=priceHt;
+    }
+
+    public Double getPriceHt() {
+        return priceHt;
+    }
+
+    public void setPriceHt(Double priceHt) {
+        this.priceHt = priceHt;
     }
 
     public Double getPriceTtc() {
@@ -39,11 +49,11 @@ public class Produit {
         this.priceTtc = priceTtc;
     }
 
-    public int getRem() {
+    public Double getRem() {
         return rem;
     }
 
-    public void setRem(int rem) {
+    public void setRem(Double rem) {
         this.rem = rem;
     }
 
@@ -79,7 +89,6 @@ public class Produit {
         this.price = price;
     }
 
-
     @Override
     public String toString() {
         return "Produit{" +
@@ -87,6 +96,7 @@ public class Produit {
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
+                ", priceHt=" + priceHt +
                 ", priceTtc=" + priceTtc +
                 ", rem=" + rem +
                 '}';
