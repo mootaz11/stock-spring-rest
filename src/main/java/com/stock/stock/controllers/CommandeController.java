@@ -4,6 +4,7 @@ package com.stock.stock.controllers;
 import com.stock.stock.entities.Commande;
 import com.stock.stock.entities.Facture;
 import com.stock.stock.entities.Produit;
+import com.stock.stock.entities.ProduitVendu;
 import com.stock.stock.repositories.CommandeRepository;
 import com.stock.stock.repositories.FactureRepository;
 import com.stock.stock.repositories.ProduitRepository;
@@ -55,6 +56,7 @@ public class CommandeController {
         Double RemiseTotale=0.0;
         Double htTotale=0.0;
         ArrayList<ProductBody> produits = new ArrayList<>();
+        ArrayList<ProductBody> produitsTopdf = new ArrayList<>();
 
         for(int i = 0 ; i < commandeBody.getProduitsVendus().size() ; i++){
         Produit realProduct = produitRepository.findProduit(commandeBody.getProduitsVendus().get(i).getProduit().get_Id());
@@ -103,10 +105,18 @@ public class CommandeController {
 
 
         Map<String, Object> params = new HashMap<String, Object>();
-        System.out.println(produits.size());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(produits);
-        params.put("produits",dataSource);
-
+        System.out.println(produits.size());
+        params.put("produits",dataSource.cloneDataSource());
+        params.put("matfiscale",commandeBody.getMatriculeFiscale());
+        params.put("date",today);
+        params.put("addresse",commandeBody.getClientAddress());
+        params.put("livraison",commandeCreated.get_Id().substring(0,8));
+        params.put("remise",String.valueOf(commandeCreated.getRemise()));
+        params.put("totalHt",String.valueOf(commandeCreated.getHtTotale()));
+        params.put("netTotal",String.valueOf(commandeCreated.getNetTotale()));
+        params.put("total",String.valueOf(commandeCreated.getNetTotale()));
+        params.put("clientName",String.valueOf(commandeCreated.getClientName()));
 
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,dataSource);
