@@ -87,8 +87,10 @@ public class CommandeController {
                     ,String.valueOf(realProduct.getPriceTtc())));
 
         }
-
     }
+
+        System.out.println(produits);
+
     commandeBody.setHtTotale(htTotale);
     commandeBody.setRemise( RemiseTotale);
     commandeBody.setNetTotale(netTotale);
@@ -123,7 +125,6 @@ public class CommandeController {
         File folder = ResourceUtils.getFile("MaxulaDocuments");
         if (!folder.exists()) {
             folder.mkdirs();
-            System.out.println(folder.getAbsolutePath());
         }
         JasperExportManager.exportReportToPdfFile(jasperPrint,
                 folder.getPath() + "/facture_" + commandeCreated.get_Id()+ ".pdf");
@@ -133,14 +134,9 @@ public class CommandeController {
 
         facture = new Facture(String.valueOf(ObjectId.get()),today,folder.getPath() + "/facture_" + commandeCreated.get_Id()+ ".pdf",commandeCreated.get_Id());
              commandeCreated.setFacture(facture);
-
         factureRepository.createFacture(facture);
 
-
-
-
         return new ResponseEntity<String> ("Commande créée avec succés ",HttpStatus.OK);
-
     }
 
     @GetMapping("/getAllCommandes")
