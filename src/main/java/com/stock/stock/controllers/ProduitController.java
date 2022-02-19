@@ -29,9 +29,10 @@ public class ProduitController {
 }
 
 @PatchMapping("/updateProduct/{id}")
-    public ResponseEntity<Produit> updateProduct (@PathVariable String id , @RequestBody Produit newProduit){
-        Produit produit = produitRepository.findProduit(id);
-        newProduit.set_Id(produit.get_Id());
+    public ResponseEntity<Produit> updateProduct (@RequestBody Produit newProduit){
+        double tva = 0.19;
+        newProduit.setPriceHt(newProduit.getPrice()-(newProduit.getPrice()*(newProduit.getRem()/100)));
+        newProduit.setPriceTtc(newProduit.getPriceHt()+(newProduit.getPriceHt()*tva));
         return produitRepository.updateProduit(newProduit);
 }
 
