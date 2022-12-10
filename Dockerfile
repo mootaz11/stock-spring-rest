@@ -1,4 +1,4 @@
-FROM  openjdk:8-jdk-alpine  as builder
+FROM  FROM openjdk:11
 WORKDIR application
 EXPOSE 8000
 ARG JAR_FILE=target/*.jar
