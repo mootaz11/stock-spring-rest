@@ -1,4 +1,4 @@
-FROM  FROM openjdk:11
+FROM  openjdk:11
 WORKDIR application
 EXPOSE 8000
 ARG JAR_FILE=target/*.jar
